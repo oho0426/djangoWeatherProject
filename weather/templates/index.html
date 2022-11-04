@@ -75,16 +75,16 @@
                 <div class="weather-banner">
                     <div class="weather-banner-header">
                         <p class="weather-banner-header-left">
-                            <span class="city">深圳</span>
-                            <span>"今天:小雨"
-                                <span>20℃ ~ 24℃</span>
-                                <span>无持续风向<3级</span>
+                            <span class="city">{{ res.city }}</span>
+                            <span>今天:{{ today_data.wea_day }}
+                                <span>{{ today_data.tem2 }}℃ ~ {{ today_data.tem1 }}℃</span>
+                                <span>{{ today_data.win.0 }}{{ today_data.win_speed }}</span>
                             </span>
                         </p>
                         <p class="weather-banner-header-right">
-                            <span data-a-19a7a00c="">11月04日</span>
-                            <span data-a-19a7a00c="">周五</span>
-                            <span data-a-19a7a00c="">农历十月十一</span>
+                            <span data-a-19a7a00c="">{{ today_m_d }}</span>
+                            <span data-a-19a7a00c="">{{ today_data.week }}</span>
+                            <span data-a-19a7a00c="">{{ zh_date }}</span>
                         </p>
                     </div>
                     <div class="weather-banner-content">
@@ -104,10 +104,10 @@
                         </div>
                     </div>
                     <div data-a-19a7a00c="" class="weather-banner-footer">
-                        <span data-a-19a7a00c="">湿度86.0%</span>
-                        <span data-a-19a7a00c="">紫外线最弱</span>
-                        <span data-a-19a7a00c="">日出06:29</span>
-                        <span data-a-19a7a00c="">日落17:45</span>
+                        <span data-a-19a7a00c="">湿度{{ today_data.humidity}}</span>
+                        <span data-a-19a7a00c="">紫外线{{ today_data.uvDescription }}</span>
+                        <span data-a-19a7a00c="">日出{{ today_data.sunrise }}</span>
+                        <span data-a-19a7a00c="">日落{{ today_data.sunset }}</span>
                     </div>
                 </div>
             </div>
