@@ -17,6 +17,26 @@
             margin: 50px auto 0;
             color: #fff;
         }
+        .weather-nav {
+            background: rgb(72, 86, 99);
+            z-index: 9999;
+            position: fixed;
+            top: -1px;
+            width: 100%;
+            height: 51px;
+        }
+        .nav-inner {
+            width: 895px;
+            height: 100%;
+            margin: 10px auto;
+        }
+        .search_img{
+            position: relative;
+            top: 5px;
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+        }
 
         .weather-banner-header {
             height: 20px;
@@ -85,7 +105,7 @@
             width: 20px;
             height: 20px;
         }
-        .weather-7day{
+        .weather-7day-box{
             position: relative;
             z-index: 999;
             width: 895px;
@@ -98,7 +118,6 @@
             border-radius: 3px;
             font-size: 0;
             background-color: rgba(0,0,0,.1);
-            font-family: PingFangSC-Regular;
         }
         .weather-7day-header p {
             font-size: 18px;
@@ -106,7 +125,7 @@
             margin-top: 8px;
             margin-bottom: 27px;
         }
-        .weather-7day div, ul, p, li{
+        .weather-7day-box div, ul, p, li{
             padding: 0;
             margin: 0;
             list-style: none;
@@ -133,6 +152,7 @@
             width: 756px;
             height: 100%;
             overflow: hidden;
+            margin-left: 50px;
         }
         .weather-7day-content{
             height: 409px;
@@ -143,6 +163,14 @@
             height: 409px;
             -webkit-transition: left .6s;
             transition: left .6s;
+        }
+        .weather-day{
+            position: relative;
+            display: inline-block;
+            width: 107px;
+            height: 389px;
+            font-size: 0;
+            border-right: 1px solid rgba(255,255,255,.1);
         }
         .weather-day:first-of-type {
             border-left: 1px solid rgba(255,255,255,.05);
@@ -183,19 +211,45 @@
             margin-top: 20px;
             height: 15px;
         }
-        .weather-15day-pm25.excellent{
+        .weather-7day-pm25.excellent{
             background-color: #40c057;
+        }
+        .nav-inner-search{
+            border-radius: 10px 10px 10px 10px;
+            width: 300px;
+            height: 40px;
+            background-color: #a0a0a0;
+        }
+        .search-city{
+            {#float: right;#}
+            position: relative;
+            background-color: #a0a0a0;
+            width: 230px;
+            height: 30px;
+            top: -6px;
+            border-radius: 5px 5px 5px 5px;
+            border: #ffffff;
         }
     </style>
 
 <body style="margin: 0">
 <div class="rt-body">
     <div class="weather">
+        <div data-a-9b685a5a="" class="weather-nav">
+            <div class="nav-inner">
+                <div class="nav-inner-search">
+                    <img class='search_img' src="{% static 'img/sousuo.png' %}"  alt="搜索" title="搜索"/>
+                    <input class="search-city" type="text" maxlength="30" onchange="search_city()" placeholder="输入城市">
+
+                </div>
+
+            </div>
+        </div>
         <div class="weather-main" style="background: linear-gradient(rgb(72, 86, 99), rgb(161, 184, 202));">
             <div class="weather-banner">
                 <div class="weather-banner-header">
                     <p class="weather-banner-header-left">
-                        <span class="city">{{ res.city }}</span>
+                        <span class="city">{{ total_data.city }}</span>
                         <span>今天:{{ today_data.wea_day }}
                                 <span>{{ today_data.tem2 }}℃ ~ {{ today_data.tem1 }}℃</span>
                                 <span>{{ today_data.win.0 }}{{ today_data.win_speed }}</span>
@@ -218,7 +272,6 @@
                             <span id="air_level">{{ today_data.air_level }}</span>
                         </div>
                         <div class="weather-banner-content-wind">
-
                             <img class='mini_img' src="{% static wea_img_path %}"  alt="天气" title="天气"/>
                             <span>{{ today_data.wea }}</span>
                             <span>{{ today_data.win.1 }}</span>
@@ -240,15 +293,14 @@
         </div>
         <div class="weather-content" style="background-color: rgb(161, 184, 202);">
             <div class="weather-7day">
-                <div class="weather-7day">
+                <div class="weather-7day-box">
                     <div class="weather-7day-header"><p>7天天气预报</p></div>
                     <div class="weather-7day-main">
-                        <div class="weather-hour-btn-box left-box"><span class="left"></span></div>
-                        <div class="weather-7day-content-box">
-                            <div class="slider" style="left: 0px; width: 1728px;">
+                        <div class="weather-7day-content-box" style="margin-left: 50px">
+                            <div class="slider" style="left: 0px; width: 863px;">
                                 <ul class="weather-7day-content">
                                     {% for day_data in total_data.data %}
-                                    <li data-selectedindex="1" data-date="{{ day_data.date }}" data-forecast="" class="weather-day" style="margin-top: 20px; padding-top: 0px; border-right: none; color: rgba(255, 255, 255, 0.4);">
+                                    <li data-selectedindex="1" data-date="{{ day_data.date }}" data-forecast="" class="weather-day" style="margin-top: 20px; padding-top: 0px; border-right: none;">
                                         <p class="week">
                                             <span class="week">{{ day_data.week }}</span>
                                         </p>
@@ -275,79 +327,7 @@
                                     </li>
                                     {% endfor %}
                                 </ul>
-                                <div class="canvas-box" style="width: 1740px; height: 170px;">
-                                    <span
-                                        class="day-item-point"
-                                        style="top: 89.0455px; left: 4.5px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.2);"></span>
-                                    <span
-                                        class="day-item-point"
-                                        style="top: 89.0455px; left: 112.5px; background: rgb(255, 255, 255); border: 1px solid rgb(255, 255, 255);"></span><span
-                                        class="day-item-point"
-                                        style="top: 70.8636px; left: 220.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                        class="day-item-point"
-                                        style="top: 61.7727px; left: 328.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                        class="day-item-point"
-                                        style="top: 43.5909px; left: 436.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                        class="day-item-point"
-                                        style="top: 43.5909px; left: 544.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                        class="day-item-point"
-                                        style="top: 43.5909px; left: 652.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                        class="day-item-point"
-                                        style="top: 52.6818px; left: 760.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                        class="day-item-point"
-                                        style="top: 34.5px; left: 868.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                        class="day-item-point"
-                                        style="top: 52.6818px; left: 976.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                        class="day-item-point"
-                                        style="top: 61.7727px; left: 1084.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                        class="day-item-point"
-                                        style="top: 61.7727px; left: 1192.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                        class="day-item-point"
-                                        style="top: 61.7727px; left: 1300.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                        class="day-item-point"
-                                        style="top: 61.7727px; left: 1408.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                        class="day-item-point"
-                                        style="top: 61.7727px; left: 1516.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                        class="day-item-point"
-                                        style="top: 61.7727px; left: 1624.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span>
-                                    <span class="day-item-point"
-                                          style="top: 129.5px; left: 4.5px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.2);"></span><span
-                                            class="day-item-point"
-                                            style="top: 120.409px; left: 112.5px; background: rgb(255, 255, 255); border: 1px solid rgb(255, 255, 255);"></span><span
-                                            class="day-item-point"
-                                            style="top: 102.227px; left: 220.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                            class="day-item-point"
-                                            style="top: 111.318px; left: 328.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                            class="day-item-point"
-                                            style="top: 102.227px; left: 436.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                            class="day-item-point"
-                                            style="top: 102.227px; left: 544.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                            class="day-item-point"
-                                            style="top: 111.318px; left: 652.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                            class="day-item-point"
-                                            style="top: 102.227px; left: 760.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                            class="day-item-point"
-                                            style="top: 102.227px; left: 868.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                            class="day-item-point"
-                                            style="top: 102.227px; left: 976.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                            class="day-item-point"
-                                            style="top: 111.318px; left: 1084.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                            class="day-item-point"
-                                            style="top: 111.318px; left: 1192.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                            class="day-item-point"
-                                            style="top: 111.318px; left: 1300.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                            class="day-item-point"
-                                            style="top: 111.318px; left: 1408.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                            class="day-item-point"
-                                            style="top: 111.318px; left: 1516.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
-                                            class="day-item-point"
-                                            style="top: 111.318px; left: 1624.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span>
-                                    <canvas id="dayCvs" width="1740" height="170"
-                                            style="width: 1740px; height: 170px; left: 0px;"></canvas>
-                                </div>
                             </div>
-                        </div>
-                        <div class="weather-hour-btn-box right-box"><span class="right"></span>
                         </div>
                     </div>
                 </div>
