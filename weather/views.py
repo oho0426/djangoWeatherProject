@@ -7,7 +7,7 @@ from django.shortcuts import render
 # Create your views here.
 def home(request):
     """首页"""
-    city = '深圳'
+    city = {"city": "武汉"}
     res = apiInfo(city)
     # 取出今天的天气数据
     today_date = datetime.today().strftime("%Y-%m-%d")
@@ -26,7 +26,6 @@ def home(request):
 def apiInfo(city):
     """请求接口返回数据"""
     url = 'https://v0.yiketianqi.com/api?unescape=1&version=v91&appid=43656176&appsecret=I42og6Lm&ext=&cityid='
-    city = '深圳'
     r = requests.get(url=url, params=city)
     if r:
         r = r.json()

@@ -3,47 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>weather</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style type="text/css">
-        .weather-main{
+        .weather-main {
             width: 100%;
             height: 518px;
         }
-        .weather-banner{
+
+        .weather-banner {
             width: 895px;
             padding: 30px 0;
             margin: 50px auto 0;
             color: #fff;
         }
-        .weather-banner-header{
+
+        .weather-banner-header {
             height: 20px;
             /* line-height: 20px; */
         }
-        .weather-banner-header-left{
+
+        .weather-banner-header-left {
             float: left;
         }
-        .weather-banner-header-right{
+
+        .weather-banner-header-right {
             float: right;
         }
-        .weather-banner-content{
+
+        .weather-banner-content {
             margin-top: 45px;
             height: 79px;
         }
-        .weather-banner-content-left{
+
+        .weather-banner-content-left {
             float: left;
         }
-        .weather-banner-content-right{
+
+        .weather-banner-content-right {
             margin-left: 30px;
             float: left;
             height: 53px;
             margin-top: 20px;
         }
-        .weather-banner-content-temperature{
+
+        .weather-banner-content-temperature {
             position: relative;
             font-size: 79px;
             line-height: 79px;
         }
-        .weather-banner-content-pm25{
+
+        .weather-banner-content-pm25 {
             display: inline-block;
             padding: 0 6px;
             height: 19px;
@@ -52,67 +61,1145 @@
             border-radius: 9.5px;
             text-align: center;
         }
-        .weather-banner-content-wind{
+
+        .weather-banner-content-wind {
             margin-top: 10px;
             line-height: 14px;
             font-size: 14px;
             vertical-align: middle;
         }
-        .weather-banner-footer{
+
+        .weather-banner-footer {
             margin-top: 30px;
             line-height: 14px;
             font-size: 14px;
         }
-        .weather-banner-footer span{
+
+        .weather-banner-footer span {
             margin-right: 20px;
         }
     </style>
 
 <body style="margin: 0">
-    <div class="rt-body">
-        <div class="weather">
-            <div class="weather-main" style="background: linear-gradient(rgb(72, 86, 99), rgb(161, 184, 202));">
-                <div class="weather-banner">
-                    <div class="weather-banner-header">
-                        <p class="weather-banner-header-left">
-                            <span class="city">{{ res.city }}</span>
-                            <span>今天:{{ today_data.wea_day }}
+<div class="rt-body">
+    <div class="weather">
+        <div class="weather-main" style="background: linear-gradient(rgb(72, 86, 99), rgb(161, 184, 202));">
+            <div class="weather-banner">
+                <div class="weather-banner-header">
+                    <p class="weather-banner-header-left">
+                        <span class="city">{{ res.city }}</span>
+                        <span>今天:{{ today_data.wea_day }}
                                 <span>{{ today_data.tem2 }}℃ ~ {{ today_data.tem1 }}℃</span>
                                 <span>{{ today_data.win.0 }}{{ today_data.win_speed }}</span>
                             </span>
-                        </p>
-                        <p class="weather-banner-header-right">
-                            <span data-a-19a7a00c="">{{ today_m_d }}</span>
-                            <span data-a-19a7a00c="">{{ today_data.week }}</span>
-                            <span data-a-19a7a00c="">{{ zh_date }}</span>
-                        </p>
+                    </p>
+                    <p class="weather-banner-header-right">
+                        <span>{{ today_m_d }}</span>
+                        <span>{{ today_data.week }}</span>
+                        <span>{{ zh_date }}</span>
+                    </p>
+                </div>
+                <div class="weather-banner-content">
+                    <div class="weather-banner-content-left">
+                        <span class="weather-banner-content-temperature">{{ today_data.tem }}°</span>
                     </div>
-                    <div class="weather-banner-content">
-                        <div class="weather-banner-content-left">
-                            <span class="weather-banner-content-temperature">24°</span>
+                    <div class="weather-banner-content-right">
+                        <div class="weather-banner-content-pm25" style="background: rgb(64, 192, 87);">
+                            <span>{{ today_data.air }}</span>
+                            <span>{{ today_data.air_level }}</span>
                         </div>
-                        <div class="weather-banner-content-right">
-                            <div class="weather-banner-content-pm25" style="background: rgb(64, 192, 87);">
-                                <span>36</span>
-                                <span>优</span>
+                        <div class="weather-banner-content-wind">
+                            <img src="./files/{{ today_data.wea_img }}.png"/>
+                            <span>{{ today_data.wea }}</span>
+                            <img src="../weather/files/qing.png">
+                            <span>{{ today_data.win.1 }}</span>
+                            <span>{{ today_data.win_meter }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="weather-banner-footer">
+                    <span>湿度{{ today_data.humidity }}</span>
+                    <span>紫外线{{ today_data.uvDescription }}</span>
+                    <span>日出{{ today_data.sunrise }}</span>
+                    <span>日落{{ today_data.sunset }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="weather-content" style="background-color: rgb(161, 184, 202);">
+            <div class="weather-7day">
+                <div class="weather-7day">
+                    <div class="weather-7day-header"><p>7天天气预报</p></div>
+                    <div class="weather-7day-main">
+                        <div class="weather-hour-btn-box left-box"><span class="left"></span></div>
+                        <div class="weather-15day-content-box">
+                            <div class="slider" style="left: 0px; width: 1728px;">
+                                <ul class="weather-15day-content">
+                                    <li data-selectedindex="1" data-date="2022-11-06"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; border-right: none; color: rgba(255, 255, 255, 0.4);">
+                                        <p class="week"><span
+                                                                                 class="week">昨天</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/06</span></p>
+                                        <p class="icon-weather" style="opacity: 0.3;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayxiaoyu"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#gainsborofengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><span
+                                                                                     class="weather-15day-pm25 excellent">
+                                优
+                            </span></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-07"
+                                        data-forecast="" class="weather-day"
+                                        style="background: rgba(255, 255, 255, 0.1); margin-top: 0px; padding-top: 20px; border-right: none; color: rgb(255, 255, 255);">
+                                        <p class="week"><span
+                                                                                 class="week">今天</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/07</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayxiaoyu"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><span
+                                                                                     class="weather-15day-pm25 excellent">
+                                优
+                            </span></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-08"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">明天</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/08</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayzhenyu"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><span
+                                                                                     class="weather-15day-pm25 excellent">
+                                优
+                            </span></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-09"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">周三</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/09</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayduoyun"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><span
+                                                                                     class="weather-15day-pm25 excellent">
+                                优
+                            </span></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-10"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">周四</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/10</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayqingtian"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><span
+                                                                                     class="weather-15day-pm25 excellent">
+                                优
+                            </span></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-11"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">周五</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/11</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayqingtian"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><span
+                                                                                     class="weather-15day-pm25 excellent">
+                                优
+                            </span></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-12"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">周六</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/12</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayqingtian"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><span
+                                                                                     class="weather-15day-pm25 excellent">
+                                优
+                            </span></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-13"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">周日</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/13</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayqingtian"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><span
+                                                                                     class="weather-15day-pm25 excellent">
+                                优
+                            </span></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-14"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">周一</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/14</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayduoyun"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><!----></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-15"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">周二</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/15</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayduoyun"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><!----></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-16"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">周三</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/16</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayduoyun"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><!----></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-17"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">周四</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/17</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayduoyun"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><!----></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-18"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">周五</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/18</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayduoyun"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><!----></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-19"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">周六</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/19</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayduoyun"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><!----></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-20"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">周日</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/20</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayduoyun"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><!----></p></li>
+                                    <li data-selectedindex="1" data-date="2022-11-21"
+                                        data-forecast="" class="weather-day"
+                                        style="margin-top: 20px; padding-top: 0px; color: rgb(255, 255, 255);"><p
+                                            class="week"><span
+                                                                                  class="week">周一</span></p>
+                                        <p class="date"><span
+                                                                                 class="date">11/21</span></p>
+                                        <p class="icon-weather" style="opacity: 1;"><span
+                                        ><svg class="weather-hour-icon"><use
+                                                xlink:href="#grayduoyun"></use></svg></span></p>
+                                        <p class="weather-15day-wind"><span
+                                                                                               class="weather-15day-wind"><span
+                                                class="wind-direction" style="opacity: 1;"><svg
+                                                class="wind-direction-icon weifeng beifeng nanfeng dongfeng xifeng xibeifeng xinanfeng dongbeifeng dongnanfeng"><use
+                                                xlink:href="#whitefengxiang"></use></svg></span> <span
+                                                class="wind-power">
+                                    &lt;3级
+                                </span></span></p>
+                                        <p class="day-pm25"><!----></p></li>
+                                </ul>
+                                <div class="canvas-box" style="width: 1740px; height: 170px;"><span
+                                        class="day-item-point"
+                                        style="top: 89.0455px; left: 4.5px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.2);"></span><span
+                                        class="day-item-point"
+                                        style="top: 89.0455px; left: 112.5px; background: rgb(255, 255, 255); border: 1px solid rgb(255, 255, 255);"></span><span
+                                        class="day-item-point"
+                                        style="top: 70.8636px; left: 220.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                        class="day-item-point"
+                                        style="top: 61.7727px; left: 328.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                        class="day-item-point"
+                                        style="top: 43.5909px; left: 436.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                        class="day-item-point"
+                                        style="top: 43.5909px; left: 544.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                        class="day-item-point"
+                                        style="top: 43.5909px; left: 652.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                        class="day-item-point"
+                                        style="top: 52.6818px; left: 760.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                        class="day-item-point"
+                                        style="top: 34.5px; left: 868.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                        class="day-item-point"
+                                        style="top: 52.6818px; left: 976.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                        class="day-item-point"
+                                        style="top: 61.7727px; left: 1084.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                        class="day-item-point"
+                                        style="top: 61.7727px; left: 1192.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                        class="day-item-point"
+                                        style="top: 61.7727px; left: 1300.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                        class="day-item-point"
+                                        style="top: 61.7727px; left: 1408.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                        class="day-item-point"
+                                        style="top: 61.7727px; left: 1516.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                        class="day-item-point"
+                                        style="top: 61.7727px; left: 1624.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span>
+                                    <span class="day-item-point"
+                                          style="top: 129.5px; left: 4.5px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.2);"></span><span
+                                            class="day-item-point"
+                                            style="top: 120.409px; left: 112.5px; background: rgb(255, 255, 255); border: 1px solid rgb(255, 255, 255);"></span><span
+                                            class="day-item-point"
+                                            style="top: 102.227px; left: 220.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                            class="day-item-point"
+                                            style="top: 111.318px; left: 328.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                            class="day-item-point"
+                                            style="top: 102.227px; left: 436.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                            class="day-item-point"
+                                            style="top: 102.227px; left: 544.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                            class="day-item-point"
+                                            style="top: 111.318px; left: 652.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                            class="day-item-point"
+                                            style="top: 102.227px; left: 760.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                            class="day-item-point"
+                                            style="top: 102.227px; left: 868.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                            class="day-item-point"
+                                            style="top: 102.227px; left: 976.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                            class="day-item-point"
+                                            style="top: 111.318px; left: 1084.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                            class="day-item-point"
+                                            style="top: 111.318px; left: 1192.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                            class="day-item-point"
+                                            style="top: 111.318px; left: 1300.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                            class="day-item-point"
+                                            style="top: 111.318px; left: 1408.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                            class="day-item-point"
+                                            style="top: 111.318px; left: 1516.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span><span
+                                            class="day-item-point"
+                                            style="top: 111.318px; left: 1624.5px; border: 1px solid rgb(255, 255, 255); background: rgb(161, 184, 202);"></span>
+                                    <canvas id="dayCvs" width="1740" height="170"
+                                            style="width: 1740px; height: 170px; left: 0px;"></canvas>
+                                </div>
                             </div>
-                            <div class="weather-banner-content-wind">
-                                <span >阴</span>
-                                <span >北风</span>
-                                <span >2级</span>
+                        </div>
+                        <div class="weather-hour-btn-box right-box"><span
+                                                                                             class="right"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="weather-15day-other"><!----></div>
+            <div class="weather-zhishu">
+                <div class="zhishu-title"><span class="zhishu-titleone">生活气象指数</span> <span
+                        class="zhishu-titletwo">早上好，天气不好，也记得让心情保持舒畅哦</span></div>
+                <div class="zhishu-box">
+                    <div class="zhishu-dec">
+                        <div class="zhishu-item"><img src="/static/weathernew/static/image/0_2c174d7.png">
+                            <div class="item-right">
+                                <div class="zhishu-item-top">穿衣: 风衣类</div>
+                                <div class="zhishu-item-bottom">19℃~23℃</div>
                             </div>
                         </div>
                     </div>
-                    <div data-a-19a7a00c="" class="weather-banner-footer">
-                        <span data-a-19a7a00c="">湿度{{ today_data.humidity}}</span>
-                        <span data-a-19a7a00c="">紫外线{{ today_data.uvDescription }}</span>
-                        <span data-a-19a7a00c="">日出{{ today_data.sunrise }}</span>
-                        <span data-a-19a7a00c="">日落{{ today_data.sunset }}</span>
+                    <div class="zhishu-dec">
+                        <div class="zhishu-item"><img src="/static/weathernew/static/image/2_a2ec97a.png">
+                            <div class="item-right">
+                                <div class="zhishu-item-top">出游: 不适宜</div>
+                                <div class="zhishu-item-bottom">小雨转多云</div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="zhishu-dec">
+                        <div class="zhishu-item"><img src="/static/weathernew/static/image/3_64099a6.png">
+                            <div class="item-right">
+                                <div class="zhishu-item-top">洗车: 不适宜</div>
+                                <div class="zhishu-item-bottom">近期有降雨</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="zhishu-dec">
+                        <div class="zhishu-item"><img src="/static/weathernew/static/image/7_b55cffb.png">
+                            <div class="item-right">
+                                <div class="zhishu-item-top">化妆: 保湿</div>
+                                <div class="zhishu-item-bottom">空气湿度65.0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="weather-future">
+                <div class="future-weather" id="weatherFuture">
+                    <div class="future-weather-header"><span
+                    >未来40天天气预报</span></div>
+                    <ul class="header-week">
+                        <li class="header-week-item">
+                            周日
+                        </li>
+                        <li class="header-week-item">
+                            周一
+                        </li>
+                        <li class="header-week-item">
+                            周二
+                        </li>
+                        <li class="header-week-item">
+                            周三
+                        </li>
+                        <li class="header-week-item">
+                            周四
+                        </li>
+                        <li class="header-week-item">
+                            周五
+                        </li>
+                        <li class="header-week-item">
+                            周六
+                        </li>
+                    </ul>
+                    <ul class="future-weather-box">
+                        <li class="future-weather-item"
+                            style="border-top: 1px solid rgba(255, 255, 255, 0.1);"><!----> <p
+                                                                                               class="future-weather-day-icon-box">
+                            <!----></p> <!----> <!----> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">今天</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayxiaoyu"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>19</span>
+                                <span>~</span> <span>23°C</span></p>
+                            <p>
+                                小雨
+                            </p>
+                            <p class="future-weather-wind">
+                                无持续风向&lt;3级
+                            </p>
+                            <p class="future-weather-pm" style="background: rgb(64, 192, 87);">
+                                优
+                            </p></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">08</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayzhenyu"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>21</span>
+                                <span>~</span> <span>25°C</span></p>
+                            <p>
+                                阵雨
+                            </p>
+                            <p class="future-weather-wind">
+                                无持续风向&lt;3级
+                            </p>
+                            <p class="future-weather-pm" style="background: rgb(64, 192, 87);">
+                                优
+                            </p></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">09</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>20</span>
+                                <span>~</span> <span>26°C</span></p>
+                            <p>
+                                多云
+                            </p>
+                            <p class="future-weather-wind">
+                                无持续风向&lt;3级
+                            </p>
+                            <p class="future-weather-pm" style="background: rgb(64, 192, 87);">
+                                优
+                            </p></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">10</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayqingtian"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>21</span>
+                                <span>~</span> <span>28°C</span></p>
+                            <p>
+                                晴
+                            </p>
+                            <p class="future-weather-wind">
+                                无持续风向&lt;3级
+                            </p>
+                            <p class="future-weather-pm" style="background: rgb(64, 192, 87);">
+                                优
+                            </p></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">11</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayqingtian"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>21</span>
+                                <span>~</span> <span>28°C</span></p>
+                            <p>
+                                晴
+                            </p>
+                            <p class="future-weather-wind">
+                                无持续风向&lt;3级
+                            </p>
+                            <p class="future-weather-pm" style="background: rgb(64, 192, 87);">
+                                优
+                            </p></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">12</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayqingtian"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>20</span>
+                                <span>~</span> <span>28°C</span></p>
+                            <p>
+                                晴
+                            </p>
+                            <p class="future-weather-wind">
+                                无持续风向&lt;3级
+                            </p>
+                            <p class="future-weather-pm" style="background: rgb(64, 192, 87);">
+                                优
+                            </p></li>
+                        <li class="future-weather-item">
+                            <div class="future-weather-date">13</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayqingtian"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>21</span>
+                                <span>~</span> <span>27°C</span></p>
+                            <p>
+                                晴
+                            </p>
+                            <p class="future-weather-wind">
+                                无持续风向&lt;3级
+                            </p>
+                            <p class="future-weather-pm" style="background: rgb(64, 192, 87);">
+                                优
+                            </p></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">14</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>21</span>
+                                <span>~</span> <span>29°C</span></p>
+                            <p>
+                                多云
+                            </p>
+                            <p class="future-weather-wind">
+                                东风&lt;3级
+                            </p> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">15</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>21</span>
+                                <span>~</span> <span>27°C</span></p>
+                            <p>
+                                多云
+                            </p>
+                            <p class="future-weather-wind">
+                                东风&lt;3级
+                            </p> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">16</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>20</span>
+                                <span>~</span> <span>26°C</span></p>
+                            <p>
+                                多云
+                            </p>
+                            <p class="future-weather-wind">
+                                东北风&lt;3级
+                            </p> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">17</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>20</span>
+                                <span>~</span> <span>26°C</span></p>
+                            <p>
+                                多云
+                            </p>
+                            <p class="future-weather-wind">
+                                东北风&lt;3级
+                            </p> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">18</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>20</span>
+                                <span>~</span> <span>26°C</span></p>
+                            <p>
+                                多云
+                            </p>
+                            <p class="future-weather-wind">
+                                东北风&lt;3级
+                            </p> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">19</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>20</span>
+                                <span>~</span> <span>26°C</span></p>
+                            <p>
+                                多云
+                            </p>
+                            <p class="future-weather-wind">
+                                东北风&lt;3级
+                            </p> <!----></li>
+                        <li class="future-weather-item">
+                            <div class="future-weather-date">20</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>20</span>
+                                <span>~</span> <span>26°C</span></p>
+                            <p>
+                                多云
+                            </p>
+                            <p class="future-weather-wind">
+                                东北风&lt;3级
+                            </p> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">21</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>20</span>
+                                <span>~</span> <span>26°C</span></p>
+                            <p>
+                                多云
+                            </p>
+                            <p class="future-weather-wind">
+                                东南风&lt;3级
+                            </p> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">22</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayxiaoyu"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>20</span>
+                                <span>~</span> <span>27°C</span></p>
+                            <p>
+                                小雨
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">23</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayxiaoyu"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>18</span>
+                                <span>~</span> <span>21°C</span></p>
+                            <p>
+                                小雨
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">24</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayxiaoyu"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>18</span>
+                                <span>~</span> <span>20°C</span></p>
+                            <p>
+                                小雨
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">25</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>18</span>
+                                <span>~</span> <span>20°C</span></p>
+                            <p>
+                                多云
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">26</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayxiaoyu"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>18</span>
+                                <span>~</span> <span>22°C</span></p>
+                            <p>
+                                小雨
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item">
+                            <div class="future-weather-date">27</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayxiaoyu"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>19</span>
+                                <span>~</span> <span>21°C</span></p>
+                            <p>
+                                小雨
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">28</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>16</span>
+                                <span>~</span> <span>22°C</span></p>
+                            <p>
+                                多云
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">29</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayqingtian"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>14</span>
+                                <span>~</span> <span>20°C</span></p>
+                            <p>
+                                晴
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">30</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayqingtian"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>14</span>
+                                <span>~</span> <span>19°C</span></p>
+                            <p>
+                                晴
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">12-01</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>15</span>
+                                <span>~</span> <span>20°C</span></p>
+                            <p>
+                                多云
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">02</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>15</span>
+                                <span>~</span> <span>20°C</span></p>
+                            <p>
+                                多云
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">03</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>16</span>
+                                <span>~</span> <span>21°C</span></p>
+                            <p>
+                                多云
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item">
+                            <div class="future-weather-date">04</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayxiaoyu"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>18</span>
+                                <span>~</span> <span>18°C</span></p>
+                            <p>
+                                小雨
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">05</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>18</span>
+                                <span>~</span> <span>22°C</span></p>
+                            <p>
+                                多云
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">06</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>17</span>
+                                <span>~</span> <span>22°C</span></p>
+                            <p>
+                                多云
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">07</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>18</span>
+                                <span>~</span> <span>21°C</span></p>
+                            <p>
+                                多云
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">08</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>18</span>
+                                <span>~</span> <span>22°C</span></p>
+                            <p>
+                                多云
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">09</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>16</span>
+                                <span>~</span> <span>22°C</span></p>
+                            <p>
+                                多云
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">10</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayqingtian"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>15</span>
+                                <span>~</span> <span>21°C</span></p>
+                            <p>
+                                晴
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item">
+                            <div class="future-weather-date">11</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayqingtian"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>14</span>
+                                <span>~</span> <span>19°C</span></p>
+                            <p>
+                                晴
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">12</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>14</span>
+                                <span>~</span> <span>20°C</span></p>
+                            <p>
+                                多云
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">13</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayxiaoyu"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>15</span>
+                                <span>~</span> <span>18°C</span></p>
+                            <p>
+                                小雨
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">14</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayxiaoyu"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>13</span>
+                                <span>~</span> <span>19°C</span></p>
+                            <p>
+                                小雨
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">15</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>14</span>
+                                <span>~</span> <span>19°C</span></p>
+                            <p>
+                                多云
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="future-weather-date">16</div>
+                            <p class="future-weather-day-icon-box">
+                                <svg class="future-weather-day-icon">
+                                    <use xlink:href="#grayduoyun"></use>
+                                </svg>
+                            </p>
+                            <p class="future-weather-temperature"><span>14</span>
+                                <span>~</span> <span>20°C</span></p>
+                            <p>
+                                多云
+                            </p> <!----> <!----></li>
+                        <li class="future-weather-item"
+                            style="border-left: 1px solid rgba(255, 255, 255, 0.1);"><!----> <p
+                                                                                                class="future-weather-day-icon-box">
+                            <!----></p> <!----> <!----> <!----> <!----></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 </body>
 </html>
