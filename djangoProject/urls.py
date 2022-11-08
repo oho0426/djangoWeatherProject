@@ -1,3 +1,5 @@
+from django.urls import re_path as url
+import weather.views as weather_views
 """djangoProject URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -18,5 +20,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('weather.urls'))
+    path('', include('weather.urls')),
+    url(r'^$', weather_views.home)
 ]
