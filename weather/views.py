@@ -10,8 +10,9 @@ def home(request):
     """首页"""
     city = {"city": "内蒙古"}
     total_data = apiInfo(city)
-    if total_data['errcode'] > 0:
-        messages.error(request, '请求失败:%s' % total_data['errmsg'])
+    for i in total_data:
+        if i == 'errcode':
+            messages.error(request, '请求失败:%s' % total_data['errmsg'])
 
     if total_data is None:
         messages.error(request, '请求失败:未知错误!')
