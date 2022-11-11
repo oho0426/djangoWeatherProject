@@ -2,7 +2,6 @@ import time
 from datetime import datetime
 import zhdate
 import requests
-
 # today_date = datetime.today().strftime("%Y-%m-%d")
 # url = 'https://v0.yiketianqi.com/api?unescape=1&version=v91&appid=43656176&appsecret=I42og6Lm&ext=&cityid='
 # city = '深圳'
@@ -14,6 +13,10 @@ import requests
 #         today_data = x
 #
 # print(today_data)
-today_date = datetime.today()
-zh_date = zhdate.ZhDate.from_datetime(datetime.today())
-print(zh_date)
+# today_date = datetime.today()
+# zh_date = zhdate.ZhDate.from_datetime(datetime.today())
+# print(zh_date)
+file = open("D:\\downloads\\1651812643(1).jpg", 'rb')
+url = "http://httpbin.org/post"
+res = requests.post(url, files={"form_field_name": file})
+print(res.status_code)

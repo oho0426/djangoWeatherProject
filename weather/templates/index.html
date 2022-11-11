@@ -338,10 +338,11 @@
 
 </body>
 <script type="text/javascript">
-    document.getElementById("pm25").style.background = ("良" == "{{today_data.air_level}}" ? "#82c91e" : "优" == "{{today_data.air_level}}" ? "#40c057" : "轻度污染" == "{{today_data.air_level}}" ? "#f76707" : "中度污染" == "{{today_data.air_level}}" ? "#e03131" : "重度污染" == "{{today_data.air_level}}" ? "#841c3c" : "严重污染" == "{{today_data.air_level}}" ? "#540822" : "");
     {% for msg in messages %}
-                alert('{{ msg.message }}');
-            {% endfor %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+    document.getElementById("pm25").style.background = ("良" == "{{today_data.air_level}}" ? "#82c91e" : "优" == "{{today_data.air_level}}" ? "#40c057" : "轻度污染" == "{{today_data.air_level}}" ? "#f76707" : "中度污染" == "{{today_data.air_level}}" ? "#e03131" : "重度污染" == "{{today_data.air_level}}" ? "#841c3c" : "严重污染" == "{{today_data.air_level}}" ? "#540822" : "");
+
 
 </script>
 </html>
