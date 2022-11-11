@@ -8,6 +8,9 @@ from django.contrib import messages
 # Create your views here.
 def home(request):
     """首页"""
+    if request.method == 'GET':
+        print('11121323123')
+
     city = "内蒙古"
     while(True):
         city_data = {"city": city}

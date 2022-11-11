@@ -239,7 +239,10 @@
             <div class="nav-inner">
                 <div class="nav-inner-search">
                     <img class='search_img' src="{% static 'img/sousuo.png' %}"  alt="搜索" title="搜索"/>
-                    <input class="search-city" type="text" maxlength="30" onchange="search_city()" placeholder="输入城市">
+                    <input class="search-city" id="search_text" type="text" maxlength="30" placeholder="输入城市">
+                    <button id="search_submit">
+                        <span>搜索</span>
+                    </button>
 
                 </div>
 
@@ -342,7 +345,13 @@
             alert('{{ msg.message }}');
         {% endfor %}
     document.getElementById("pm25").style.background = ("良" == "{{today_data.air_level}}" ? "#82c91e" : "优" == "{{today_data.air_level}}" ? "#40c057" : "轻度污染" == "{{today_data.air_level}}" ? "#f76707" : "中度污染" == "{{today_data.air_level}}" ? "#e03131" : "重度污染" == "{{today_data.air_level}}" ? "#841c3c" : "严重污染" == "{{today_data.air_level}}" ? "#540822" : "");
+    function search_city(){
+        var submit = document.getElementById("search_submit")
+        submit.click(function (){
 
+        })
+
+    }
 
 </script>
 </html>
