@@ -32,7 +32,7 @@
         }
         .search_img{
             position: relative;
-            top: 5px;
+            top: 2px;
             width: 30px;
             height: 30px;
             margin-left: 10px;
@@ -221,14 +221,33 @@
             background-color: #a0a0a0;
         }
         .search-city{
+            text-indent: 10px;
             {#float: right;#}
             position: relative;
             background-color: #a0a0a0;
-            width: 230px;
-            height: 30px;
-            top: -6px;
-            border-radius: 5px 5px 5px 5px;
+            width: 245px;
+            height: 40px;
+            top: -9px;
+            border-radius: 0px 10px 10px 0px;
             border: #ffffff;
+        }
+        .search-city:hover{
+            background-color: #b0b0b0;
+            cursor: text;
+        }
+        .search-city:focus{
+            outline: none;
+        }
+        .search-city::-webkit-input-placeholder{
+            color: #ffffff;
+        }
+        .search-button{
+            cursor: pointer;
+            border-radius: 10px 0px 0px 10px;
+            width: 50px;
+            height: 40px;
+            background-color: #a0a0a0;
+            border: #a0a0a0;
         }
     </style>
 
@@ -238,11 +257,13 @@
         <div data-a-9b685a5a="" class="weather-nav">
             <div class="nav-inner">
                 <div class="nav-inner-search">
-                    <img class='search_img' src="{% static 'img/sousuo.png' %}"  alt="搜索" title="搜索"/>
-                    <input class="search-city" id="search_text" type="text" maxlength="30" placeholder="输入城市">
-                    <button id="search_submit">
-                        <span>搜索</span>
-                    </button>
+                    <form method="get" action="/weather/" >
+                        <button class="search-button" type="submit">
+                            <img class='search_img' src="{% static 'img/sousuo.png' %}"  alt="搜索" title="搜索"/>
+                        </button>
+                        <input class="search-city" name="city" type="search" maxlength="30" placeholder="输入城市">
+                    </form>
+
 
                 </div>
 
@@ -345,13 +366,7 @@
             alert('{{ msg.message }}');
         {% endfor %}
     document.getElementById("pm25").style.background = ("良" == "{{today_data.air_level}}" ? "#82c91e" : "优" == "{{today_data.air_level}}" ? "#40c057" : "轻度污染" == "{{today_data.air_level}}" ? "#f76707" : "中度污染" == "{{today_data.air_level}}" ? "#e03131" : "重度污染" == "{{today_data.air_level}}" ? "#841c3c" : "严重污染" == "{{today_data.air_level}}" ? "#540822" : "");
-    function search_city(){
-        var submit = document.getElementById("search_submit")
-        submit.click(function (){
 
-        })
-
-    }
 
 </script>
 </html>

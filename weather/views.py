@@ -8,19 +8,19 @@ from django.contrib import messages
 # Create your views here.
 def home(request):
     """首页"""
-    if request.method == 'GET':
-        print('11121323123')
 
-    city = "内蒙古"
-    while(True):
+    if request.method == 'GET':
+        city = request.GET.get("city")
+
+    i = 0
+    while i < 3:
+        i += 1
         city_data = {"city": city}
         total_data = apiInfo(city_data)
-        print(city)
-        print(total_data)
         errcode = 'errcode'
         if errcode in total_data:
-            messages.error(request, '请求失败:%s 默认城市北京' % total_data['errmsg'])
-            city = "北京"
+            messages.error(request, '查找错误:%s 已切换至默认城市' % total_data['errmsg'])
+            city = None
             continue
         else:
             break
