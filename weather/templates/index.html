@@ -283,7 +283,7 @@
                         <button class="search-button" type="submit">
                             <img class='search_img' src="{% static 'img/sousuo.png' %}"  alt="搜索" title="搜索"/>
                         </button>
-                        <input class="search-city" name="city" type="search" maxlength="30" placeholder="输入城市">
+                        <input class="search-city" name="city" type="search" maxlength="30" placeholder="输入城市" style="color: #ffffff">
                     </form>
                 </div>
             </div>
@@ -352,7 +352,7 @@
                                         </p>
                                         <p class="icon-weather">
                                             {% with day_img="/img/"|add:day_data.wea_img|add:".png" %}
-                                            <img class='day_img' src="{% static day_img %}"  alt="当日天气" title="当日天气"/>
+                                            <img class='day_img' src="{% static day_img %}"  alt="当日天气" title="{{ day_data.wea }}"/>
                                             {% endwith %}
                                         </p>
                                         <p class="weather-7day-wind">

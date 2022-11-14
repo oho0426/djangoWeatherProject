@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 import zhdate
 import requests
@@ -35,6 +36,8 @@ def home(request):
     # 转换农历日期
 
     zh_date = zhdate.ZhDate.from_datetime(datetime.today())
+    zh_date = zh_date.chinese()
+    print(zh_date)
     today_data = []
     for x in total_data['data']:
         if x['date'] == today_date:
@@ -43,8 +46,6 @@ def home(request):
     wea_img_path = 'img/%s.png' % today_data['wea_img']
 
     return render(request, 'index.html', locals())
-
-
 
 
 def apiInfo(city):
