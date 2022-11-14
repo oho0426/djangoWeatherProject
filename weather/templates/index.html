@@ -261,6 +261,16 @@
         .day_win_img{
             height: 12px;
         }
+        .weather-7day-pm25-level{
+            display: inline-block;
+            padding: 0 6px;
+            height: 19px;
+            min-width: 30px;
+            line-height: 19px;
+            font-size: 12px;
+            border-radius: 9.5px;
+            text-align: center;
+        }
     </style>
 
 <body style="margin: 0">
@@ -351,11 +361,11 @@
                                                 <span class="wind-power">{{ day_data.win_speed }}</span>
                                             </span>
                                         </p>
-                                        <p class="day-pm25" id="day_pm25">
-                                            <span class="weather-7day-pm25 excellent">{{ day_data.air_level }}</span>
+                                        <p class="day-pm25">
+                                            <span  id="{{ day_data.date }}_pm25" class="weather-7day-pm25-level">{{ day_data.air_level }}</span>
                                         </p>
                                     </li>
-                                    {% endfor %}
+                                {% endfor %}
                                 </ul>
                             </div>
                         </div>
@@ -372,6 +382,9 @@
             alert('{{ msg.message }}');
         {% endfor %}
     document.getElementById("pm25").style.background = ("良" == "{{today_data.air_level}}" ? "#82c91e" : "优" == "{{today_data.air_level}}" ? "#40c057" : "轻度污染" == "{{today_data.air_level}}" ? "#f76707" : "中度污染" == "{{today_data.air_level}}" ? "#e03131" : "重度污染" == "{{today_data.air_level}}" ? "#841c3c" : "严重污染" == "{{today_data.air_level}}" ? "#540822" : "");
+    {% for day_data in total_data.data %}
+            document.getElementById("{{ day_data.date }}_pm25").style.background = ("良" == "{{day_data.air_level}}" ? "#82c91e" : "优" == "{{day_data.air_level}}" ? "#40c057" : "轻度污染" == "{{day_data.air_level}}" ? "#f76707" : "中度污染" == "{{day_data.air_level}}" ? "#e03131" : "重度污染" == "{{day_data.air_level}}" ? "#841c3c" : "严重污染" == "{{day_data.air_level}}" ? "#540822" : "");
+    {% endfor %}
 
 
 </script>
