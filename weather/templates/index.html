@@ -195,14 +195,14 @@
 
         }
         .weather-day>p{
-            font-size: 0;
+            {#font-size: 0;#}
             display: inline-block;
             width: 108px;
             text-align: center;
         }
         .weather-7day-wind {
             font-size: 14px;
-            margin-top: 220px;
+            margin-top: 150px;
             height: 20px;
         }
         .weather-day .weather-hour-icon{
@@ -270,6 +270,34 @@
             font-size: 12px;
             border-radius: 9.5px;
             text-align: center;
+        }
+        .temperature_img{
+            margin-top: 10px;
+            height: 12px;
+            margin-bottom: 10px;
+        }
+        .weather-7day-temperature{
+            position: relative;
+            font-size: 14px;
+            margin-top: 50px;
+            {#height: 100px;#}
+        }
+        .weather-high-temperature{
+            position: absolute;
+            margin-left: -10px;
+            width: 20px;
+            {#margin-top: 50px;#}
+            height: 50px;
+        }
+        .weather-low-temperature{
+            position: absolute;
+            width: 20px;
+            margin-left: -10px;
+            margin-top: 60px;
+            height: 50px;
+        }
+        .temperature_img{
+
         }
     </style>
 
@@ -355,6 +383,17 @@
                                             <img class='day_img' src="{% static day_img %}"  alt="当日天气" title="{{ day_data.wea }}"/>
                                             {% endwith %}
                                         </p>
+                                        <p class="weather-7day-temperature">
+                                            <span class="weather-high-temperature">
+                                                <span class="day-high-temperature">{{ day_data.tem1 }}</span>
+                                                <img class='temperature_img' src="{% static "/img/yuan.png" %}"  alt="当日最高温" title="当日最高温"/>
+                                            </span>
+                                            <span class="weather-low-temperature">
+                                                <img class='temperature_img' src="{% static "/img/yuan.png" %}"  alt="当日最低温" title="当日最低温"/>
+                                                <span class="day-low-temperature">{{ day_data.tem2 }}</span>
+                                            </span>
+
+                                        </p>
                                         <p class="weather-7day-wind">
                                             <span class="weather-7day-wind">
                                                 <img class='day_win_img' src="{% static "/img/fengxiang.png" %}"  alt="当日风力" title="当日风力"/>
@@ -381,9 +420,9 @@
     {% for msg in messages %}
             alert('{{ msg.message }}');
         {% endfor %}
-    document.getElementById("pm25").style.background = ("良" == "{{today_data.air_level}}" ? "#82c91e" : "优" == "{{today_data.air_level}}" ? "#40c057" : "轻度污染" == "{{today_data.air_level}}" ? "#f76707" : "中度污染" == "{{today_data.air_level}}" ? "#e03131" : "重度污染" == "{{today_data.air_level}}" ? "#841c3c" : "严重污染" == "{{today_data.air_level}}" ? "#540822" : "");
+    document.getElementById("pm25").style.background = ("良" == "{{today_data.air_level}}" ? "#82c91e" : "优" == "{{today_data.air_level}}" ? "#40c057" : "轻度污染" == "{{today_data.air_level}}" ? "#f76707" : "轻度" == "{{today_data.air_level}}" ? "#f76707" : "中度污染" == "{{today_data.air_level}}" ? "#e03131" : "重度污染" == "{{today_data.air_level}}" ? "#841c3c" : "严重污染" == "{{today_data.air_level}}" ? "#540822" : "");
     {% for day_data in total_data.data %}
-            document.getElementById("{{ day_data.date }}_pm25").style.background = ("良" == "{{day_data.air_level}}" ? "#82c91e" : "优" == "{{day_data.air_level}}" ? "#40c057" : "轻度污染" == "{{day_data.air_level}}" ? "#f76707" : "中度污染" == "{{day_data.air_level}}" ? "#e03131" : "重度污染" == "{{day_data.air_level}}" ? "#841c3c" : "严重污染" == "{{day_data.air_level}}" ? "#540822" : "");
+            document.getElementById("{{ day_data.date }}_pm25").style.background = ("良" == "{{day_data.air_level}}" ? "#82c91e" : "优" == "{{day_data.air_level}}" ? "#40c057" : "轻度污染" == "{{day_data.air_level}}" ? "#f76707" : "轻度" == "{{day_data.air_level}}" ? "#f76707" : "中度污染" == "{{day_data.air_level}}" ? "#e03131" : "重度污染" == "{{day_data.air_level}}" ? "#841c3c" : "严重污染" == "{{day_data.air_level}}" ? "#540822" : "");
     {% endfor %}
 
 
