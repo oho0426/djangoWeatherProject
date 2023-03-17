@@ -1,9 +1,12 @@
+import json
 import re
 from datetime import datetime
 import zhdate
 import requests
 from django.shortcuts import render
 from django.contrib import messages
+from django.http import HttpResponse
+import weather.weatherAPI
 
 
 # Create your views here.
@@ -56,3 +59,59 @@ def apiInfo(city):
         return r
     else:
         print("请求失败:%s" % r)
+
+
+def reResponse(code=0, text=None, msg='success', contentType='application/json'):
+    res = {'code': code, 'msg': msg}
+    res['data'] = text
+    return HttpResponse(json.dumps(res), content_type=contentType)
+
+
+def provinceData(request):
+    try:
+        if request.method == 'GET':
+            weatherAPI = weather.weatherAPI.WeatherAPI()
+            provinceJson = weatherAPI.getProvince()
+            if provinceJson:
+                return reResponse(0, provinceJson)
+            else:
+                return reResponse(1, provinceJson, msg='fail')
+        else:
+            return reResponse(1, msg='请求方法错误！')
+    except Exception as e:
+        return reResponse(1, msg=str(e))
+
+
+def citiesData(request):
+    try:
+        if request.method == 'GET':
+            weatherAPI = weather.weatherAPI.WeatherAPI()
+            provinceCode = request.GET.get('provinceCode')
+            if not provinceCode:
+                provinceCode = 'ABJ'
+            citiesJson = weatherAPI.getCities(provinceCode)
+            if citiesJson:
+                return reResponse(0, citiesJson)
+            else:
+                return reResponse(1, citiesJson, msg='fail')
+        else:
+            return reResponse(1, msg='请求方法错误！')
+    except Exception as e:
+        return reResponse(1, msg=str(e))
+
+def weatherInfo(request):
+    try:
+        if request.method == 'GET':
+            weatherAPI = weather.weatherAPI.WeatherAPI()
+            cityCode = request.GET.get('cityCode')
+            if not cityCode:
+                raise ValueError("城市code不能为空！")
+            weatherJson = weatherAPI.getWeatherInfo(cityCode)
+            if weatherJson:
+                return reResponse(0, weatherJson)
+            else:
+                return reResponse(1, weatherJson, msg='fail')
+        else:
+            return reResponse(1, msg='请求方法错误！')
+    except Exception as e:
+        return reResponse(1, msg=str(e))

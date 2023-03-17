@@ -21,5 +21,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('weather.urls')),
-    url(r'^$', weather_views.home)
+    # url(r'^$', weather_views.home)
 ]

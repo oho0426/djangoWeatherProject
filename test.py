@@ -1,3 +1,4 @@
+import json
 import time
 from datetime import datetime
 import zhdate
@@ -16,7 +17,13 @@ import requests
 # today_date = datetime.today()
 # zh_date = zhdate.ZhDate.from_datetime(datetime.today())
 # print(zh_date)
-file = open("D:\\downloads\\1651812643(1).jpg", 'rb')
-url = "http://httpbin.org/post"
-res = requests.post(url, files={"form_field_name": file})
-print(res.status_code)
+# file = open("D:\\downloads\\1651812643(1).jpg", 'rb')
+# url = "http://httpbin.org/post"
+# res = requests.post(url, files={"form_field_name": file})
+# print(res.status_code)
+
+res = {'code': '0', 'data': None, 'msg': 'success'}
+res['data'] = 'test'
+print(json.dumps(res))
+# res['data'] = "provinceJson"
+print(res)
