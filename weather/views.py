@@ -125,14 +125,14 @@ def weatherInfo(request):
             if not cityCode:
                 raise ValueError("城市code不能为空！")
 
-            # 去数据库查询，如果时间大于半小时，则调用接口更新数据
+            # 去数据库查询，如果时间大于15分钟，则调用接口更新数据
             searchTime = timezone.now() - timezone.timedelta(minutes=15)
             searchWeatherInfo = WeatherInfo.objects.filter(province_code=provinceCode, city_code=cityCode, create_time__gte=searchTime).order_by('-id').first()
             weatherJson = None
             if searchWeatherInfo:
                 print(searchWeatherInfo.create_time)
                 weatherJson = json.loads(searchWeatherInfo.weather_info)
-            # 如果没有查到数据或数据超过半小时，则请求接口，插入数据
+            # 如果没有查到数据或数据超过15分钟，则请求接口，插入数据
             if not weatherJson:
                 # 请求接口，获取信息
                 weatherJson = weather_API.getWeatherInfo(cityCode)
