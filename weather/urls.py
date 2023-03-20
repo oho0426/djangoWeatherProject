@@ -4,7 +4,7 @@ from django.urls import re_path as url
 # from django.urls import re_path as url
 from . import views
 
-app_name = 'first_app'
+app_name = 'weather'
 
 urlpatterns = [
     url(r'^$', views.home),

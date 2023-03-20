@@ -79,7 +79,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'weather': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'weather',
+        'HOST': '182.61.20.79',
+        'PORT': 3306,
+        'USER': 'weather',
+        'PASSWORD': 123456
     }
+}
+DATABASES_APPS_MAPPING = {
+    'weather': 'weather'
 }
 
 
