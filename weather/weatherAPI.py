@@ -55,6 +55,7 @@ class WeatherAPI:
         res = requests.get(url=self.domain + path, params=params)
         weatherInfo = json.loads(res.content.decode('utf-8'))
         if weatherInfo:
-            return weatherInfo
+            return weatherInfo['data']
         else:
             print("未知错误！")
+
