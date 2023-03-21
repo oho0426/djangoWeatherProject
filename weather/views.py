@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from .models import WeatherInfo
 
+
 # Create your views here.
 def home(request):
     """首页"""
@@ -127,7 +128,11 @@ def weatherInfo(request):
 
             # 去数据库查询，如果时间大于15分钟，则调用接口更新数据
             searchTime = timezone.now() - timezone.timedelta(minutes=15)
-            searchWeatherInfo = WeatherInfo.objects.filter(province_code=provinceCode, city_code=cityCode, create_time__gte=searchTime).order_by('-id').first()
+            searchWeatherInfo = WeatherInfo.objects.filter(
+                province_code=provinceCode,
+                city_code=cityCode,
+                create_time__gte=searchTime
+            ).order_by('-id').first()
             weatherJson = None
             if searchWeatherInfo:
                 print(searchWeatherInfo.create_time)
@@ -140,8 +145,13 @@ def weatherInfo(request):
                 province = weatherJson['real']['station']['province']
                 city = weatherJson['real']['station']['city']
                 weather_info = json.dumps(weatherJson)
-                WeatherInfo.objects.create(province=province, province_code=provinceCode, city=city, city_code=cityCode, weather_info=weather_info)
-
+                WeatherInfo.objects.create(
+                    province=province,
+                    province_code=provinceCode,
+                    city=city,
+                    city_code=cityCode,
+                    weather_info=weather_info
+                )
 
             if weatherJson:
                 return reJsonResponse(0, weatherJson)
