@@ -145,7 +145,13 @@ def weatherInfo(request):
                 province = weatherJson['real']['station']['province']
                 city = weatherJson['real']['station']['city']
                 weather_info = json.dumps(weatherJson, ensure_ascii=False)
-                WeatherInfo.objects.create(province=province, province_code=provinceCode, city=city, city_code=cityCode, weather_info=weather_info)
+                WeatherInfo.objects.create(
+                    province=province,
+                    province_code=provinceCode,
+                    city=city,
+                    city_code=cityCode,
+                    weather_info=weather_info
+                )
 
                 weather_info = json.dumps(weatherJson)
                 WeatherInfo.objects.create(
