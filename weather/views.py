@@ -66,7 +66,7 @@ def apiInfo(city):
 def reJsonResponse(code=0, text=None, msg='success', contentType='application/json'):
     res = {'code': code, 'msg': msg}
     res['data'] = text
-    return JsonResponse(res, content_type=contentType)
+    return JsonResponse(res, content_type=contentType, json_dumps_params={'ensure_ascii': False})
 
 
 def provinceData(request):
@@ -144,6 +144,9 @@ def weatherInfo(request):
                 # 设置表字段数据
                 province = weatherJson['real']['station']['province']
                 city = weatherJson['real']['station']['city']
+                weather_info = json.dumps(weatherJson, ensure_ascii=False)
+                WeatherInfo.objects.create(province=province, province_code=provinceCode, city=city, city_code=cityCode, weather_info=weather_info)
+
                 weather_info = json.dumps(weatherJson)
                 WeatherInfo.objects.create(
                     province=province,
