@@ -72,8 +72,8 @@ def reJsonResponse(code=0, text=None, msg='success', contentType='application/js
 def provinceData(request):
     """
     获取省份code
-    :param request:
-    :return:
+    :param request:GET请求
+    :return:返回全国所有省份
     """
     try:
         if request.method == 'GET':
@@ -92,8 +92,8 @@ def provinceData(request):
 def citiesData(request):
     """
     根据省份code获取城市信息
-    :param request:
-    :return:
+    :param request:GET请求
+    :return:返回省份下所有的城市code/名称
     """
     try:
         if request.method == 'GET':
@@ -115,8 +115,8 @@ def citiesData(request):
 def weatherInfo(request):
     """
     根据城市ID获取天气信息
-    :param request:
-    :return:
+    :param request:POST请求
+    :return:返回json格式的天气信息
     """
     try:
         if request.method == 'POST':
