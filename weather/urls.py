@@ -7,7 +7,7 @@ from . import views
 app_name = 'weather'
 
 urlpatterns = [
-    url(r'^$', views.home),
+    url(r'^weather/$', views.home),
     url(r'^provincedata/$', views.provinceData),
     url(r'^citiesdata/$', views.citiesData),
     url(r'^weatherinfo/$', views.weatherInfo)
